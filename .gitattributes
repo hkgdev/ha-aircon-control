@@ -1,0 +1,17 @@
+# Normalize line endings to LF for source files used in the add-on
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.php text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+Dockerfile text eol=lf
+config.yaml text eol=lf
+rootfs/etc/services.d/apache/run text eol=lf
+rootfs/etc/services.d/apache/finish text eol=lf
+
+# Treat images/binaries as binary
+*.png binary
+*.jpg binary
+*.gif binary

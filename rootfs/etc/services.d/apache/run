@@ -1,0 +1,51 @@
+#!/bin/sh
+# Fallback run script - read options.json directly and start Apache
+# This avoids depending on bashio/with-contenv while we debug s6 startup issues.
+
+OPTIONS_FILE="/data/options.json"
+
+AIRCON_IP=""
+AIRCON_PORT="80"
+AIRCON_PW=""
+
+if [ -f "$OPTIONS_FILE" ]; then
+  AIRCON_IP=$(sed -n 's/.*"aircon_server_ip"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$OPTIONS_FILE" | tr -d '\r')
+  AIRCON_PORT=$(sed -n 's/.*"aircon_server_port"[[:space:]]*:[[:space:]]*\([0-9][0-9]*\).*/\1/p' "$OPTIONS_FILE" | tr -d '\r')
+  AIRCON_PW=$(sed -n 's/.*"aircon_server_password"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$OPTIONS_FILE" | tr -d '\r')
+fi
+
+AIRCON_IP=${AIRCON_IP:-}
+AIRCON_PORT=${AIRCON_PORT:-80}
+AIRCON_PW=${AIRCON_PW:-}
+
+# Export as environment variables for PHP
+export AIRCON_SERVER_IP="$AIRCON_IP"
+export AIRCON_SERVER_PORT="$AIRCON_PORT"
+export AIRCON_SERVER_PASSWORD="$AIRCON_PW"
+
+# Create Apache virtual host configuration
+cat > /etc/apache2/conf.d/aircon.conf << EOF
+<VirtualHost *:8099>
+    DocumentRoot /var/www/html
+
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # Proxy aircon server requests
+    ProxyPass /api http://$AIRCON_IP:$AIRCON_PORT/
+    ProxyPassReverse /api http://$AIRCON_IP:$AIRCON_PORT/
+
+    # Enable CORS for the app
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type"
+</VirtualHost>
+EOF
+
+## Start PHP built-in server as a lightweight alternative to Apache
+# This avoids Apache/suexec issues and is sufficient for the add-on proxy + static files.
+cd /var/www/html || exit 1
+exec php -S 0.0.0.0:8099 -t /var/www/html

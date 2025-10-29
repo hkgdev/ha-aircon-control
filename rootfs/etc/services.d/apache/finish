@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bashio
+# Finish script for apache service - no cleanup required, exit cleanly
+exit 0

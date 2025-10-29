@@ -1,0 +1,208 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#on-off-toggle {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ccc;
+    color: white;
+}
+
+#on-off-toggle.on {
+    background-color: #4CAF50;
+}
+
+.temps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.current-temp, .desired-temp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.temp-unit {
+    margin-left: 2px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: manipulation;
+}
+
+#temp-minus, #temp-plus {
+    background-color: #2196F3;
+    color: white;
+}
+
+.upper-middle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.fan-speed, .mode {
+    flex: 1;
+}
+
+.fan-speed {
+    margin-right: 20px;
+}
+
+.fan-buttons, .mode-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.fan-buttons button, .mode-buttons button {
+    flex: 1;
+    background-color: #ccc;
+    color: white;
+}
+
+.fan-buttons button.selected, .mode-buttons button.selected {
+    background-color: #2196F3;
+}
+
+.lower-middle {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#zones-container {
+    margin-top: 10px;
+}
+
+.zone {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.zone-name {
+    flex: 1;
+}
+
+.zone-toggle {
+    padding: 5px 10px;
+    width: 50px;
+    background-color: #ccc;
+    color: white;
+    margin-right: 10px;
+}
+
+.zone-toggle.on {
+    background-color: #4CAF50;
+}
+
+.zone-percentage {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.zone-percentage span {
+    width: 35px;
+    text-align: center;
+}
+
+.zone-percentage button {
+    background-color: #2196F3;
+    color: white;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.current-time {
+    font-size: 18px;
+}
+
+.timer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timer-label {
+    font-weight: bold;
+}
+
+#timer-toggle {
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: white;
+}
+
+#timer-toggle.on {
+    background-color: #FF9800;
+}
+
+#timer-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#timer-minus, #timer-plus {
+    background-color: #2196F3;
+    color: white;
+}
